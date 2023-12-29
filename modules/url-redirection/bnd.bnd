@@ -1,0 +1,4 @@
+Bundle-Name: url-redirection
+Bundle-SymbolicName: com.darkcoder.url
+Bundle-Version: 1.0.0
+Export-Package: com.darkcoder.url.constants
