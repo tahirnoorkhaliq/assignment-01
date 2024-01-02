@@ -1,0 +1,4 @@
+Bundle-Name: user-details-api
+Bundle-SymbolicName: com.tahir.user.details
+Bundle-Version: 1.0.0
+Liferay-Configuration-Path: /configuration
