@@ -1,0 +1,4 @@
+Bundle-Name: create-users
+Bundle-SymbolicName: com.create.user
+Bundle-Version: 1.0.0
+Export-Package: com.create.user.constants

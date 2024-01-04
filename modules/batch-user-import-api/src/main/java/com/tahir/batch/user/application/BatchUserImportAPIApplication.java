@@ -14,6 +14,7 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -94,11 +95,11 @@ public class BatchUserImportAPIApplication extends Application {
 		return null;
 
 	}
-/*
+
 	@GET
 	@Path("/createuser")
 	@Produces("text/plain")
-	public String createUser() throws JsonMappingException, JsonProcessingException {
+	public String createUser() throws IOException {
 		System.out.println("working createUser api");
 		InputStream is = BatchUserImportAPIApplication.class.getClassLoader().getResourceAsStream("userloadtest.json");
 		String usersJson = printInputStream(is);
@@ -112,7 +113,7 @@ public class BatchUserImportAPIApplication extends Application {
 		long total = 0;
 		for (int i = 11; i <= 3004; i++) {
 			LiferayUser liferayUser = ppl2.get(i);
-			User s = _UserLocalService.fetchUserByScreenName(20097, liferayUser.getScreenName());
+			User s = _UserLocalService.fetchUserByScreenName(20097, liferayUser.getalternateName());
 			if (s == null) {
 				s = _UserLocalService.fetchUserByEmailAddress(20097, liferayUser.getEmailAddress());
 				if (s != null) {
@@ -121,9 +122,9 @@ public class BatchUserImportAPIApplication extends Application {
 				try {
 					long startAdd = System.currentTimeMillis();
 					s = _UserLocalService.addUser(serviceContext.getUserId(), 20097, false, "test@123", "test@123",
-							false, liferayUser.getScreenName(), liferayUser.getEmailAddress(), LocaleUtil.getDefault(),
+							false, liferayUser.getalternateName(), liferayUser.getEmailAddress(), LocaleUtil.getDefault(),
 							liferayUser.getFirstName(), StringPool.BLANK, liferayUser.getLastName(), 0, 0, true, 1, 1,
-							1989, liferayUser.getJobTitle(), new long[] {}, new long[] {}, new long[] {}, new long[] {},
+							1989, liferayUser.getJobTitle(),2, new long[] {}, new long[] {}, new long[] {}, new long[] {},
 							false, serviceContext);
 					long endAdd = System.currentTimeMillis();
 					total = total + (endAdd - startAdd);
@@ -140,7 +141,7 @@ public class BatchUserImportAPIApplication extends Application {
 		long totalwithusergroups = 0;
 		for (int i = 3005; i <= 6010; i++) {
 			LiferayUser liferayUser = ppl2.get(i);
-			User s = _UserLocalService.fetchUserByScreenName(20097, liferayUser.getScreenName());
+			User s = _UserLocalService.fetchUserByScreenName(20097, liferayUser.getalternateName());
 			if (s == null) {
 				s = _UserLocalService.fetchUserByEmailAddress(20097, liferayUser.getEmailAddress());
 				if (s != null) {
@@ -149,10 +150,12 @@ public class BatchUserImportAPIApplication extends Application {
 				try {
 					long startAdd = System.currentTimeMillis();
 					s = _UserLocalService.addUser(serviceContext.getUserId(), 20097, false, "test@123", "test@123",
-							false, liferayUser.getScreenName(), liferayUser.getEmailAddress(), LocaleUtil.getDefault(),
+							false, liferayUser.getalternateName(), liferayUser.getEmailAddress(), LocaleUtil.getDefault(),
 							liferayUser.getFirstName(), StringPool.BLANK, liferayUser.getLastName(), 0, 0, true, 1, 1,
-							1989, liferayUser.getJobTitle(), new long[] {}, new long[] {}, new long[] {},
+							1989, liferayUser.getJobTitle(), 2, new long[] {}, new long[] {}, new long[] {},
 							new long[] { 43801, 71320 }, false, serviceContext);
+					
+					
 					long endAdd = System.currentTimeMillis();
 					totalwithusergroups = totalwithusergroups + (endAdd - startAdd);
 					System.out.println(s);
@@ -168,5 +171,5 @@ public class BatchUserImportAPIApplication extends Application {
 		System.out.println("totalwithusergroups" + totalwithusergroups);
 
 		return "createUser";
-	}*/
+	}
 }

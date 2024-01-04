@@ -1,4 +1,4 @@
-package com.tahir.batch.user.application;
+package com.create.user.portlet;
 
 public class LiferayUser {
 	
