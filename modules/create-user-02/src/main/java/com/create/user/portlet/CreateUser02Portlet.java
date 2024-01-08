@@ -4,6 +4,11 @@ import com.create.user.constants.CreateUser02PortletKeys;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskManagerUtil;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskThreadLocal;
+import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay;
+import com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplayFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -27,6 +32,8 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -50,6 +57,22 @@ import org.osgi.service.component.annotations.Reference;
 	service = Portlet.class
 )
 public class CreateUser02Portlet extends MVCPortlet {
+	@Override
+		public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
+				throws IOException, PortletException {
+		try {
+            // Get a list of background tasks
+            BackgroundTaskDisplay backgroundTaskDisplays =BackgroundTaskDisplayFactoryUtil.getBackgroundTaskDisplay(BackgroundTaskThreadLocal.getBackgroundTaskId());
+            
+
+            // Set the background task displays as a request attribute
+            renderRequest.setAttribute(
+                "backgroundTaskDisplays", backgroundTaskDisplays);
+        } catch (Exception e) {
+            // Handle exceptions
+        }
+			super.doView(renderRequest, renderResponse);
+		}
 	@Reference
 	UserLocalService _UserLocalService;
 	@Override
@@ -61,7 +84,7 @@ public class CreateUser02Portlet extends MVCPortlet {
 	    	
 				try {
 					createUserUtil();
-				} catch (IOException e) {
+				} catch (IOException | InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -70,8 +93,9 @@ public class CreateUser02Portlet extends MVCPortlet {
 	    System.out.println("============Stop=============");
 		
 	}
-	private void createUserUtil() throws IOException {
+	private void createUserUtil() throws IOException, InterruptedException {
 		System.out.println("================createUser ===============");
+		Thread.sleep(100000);
 		InputStream is = CreateUser02Portlet.class.getClassLoader().getResourceAsStream("users.json");
 		System.out.println(is);
 		String usersJson = printInputStream(is);
