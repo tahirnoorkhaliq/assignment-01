@@ -29,6 +29,7 @@
      //   }
     
 %>
+<p class="up-date"></p>
 <button onclick="ajaxCall()">resourceURL in Ajax</button>
 <script type="text/javascript">
     function ajaxCall() {
@@ -42,6 +43,7 @@
                     success: function () {
                         alert(this.get('responseData'));
                         $('.status').html(this.get('responseData'));
+                        $('.up-date').html(this.get('responseData'));
                     }
 
                 }
