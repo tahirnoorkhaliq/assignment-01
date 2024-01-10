@@ -1,45 +1,11 @@
-<%@page import="com.liferay.portal.kernel.backgroundtask.display.BackgroundTaskDisplay"%>
+
 <%@ include file="/init.jsp" %>
 
-<p>
-	<b><liferay-ui:message key="createuser02.caption"/></b>
-</p>
-<portlet:actionURL name="addEntry" var="addEntryURL1" />
-<portlet:resourceURL var="testAjaxResourceUrl" id="/test/osgi/resourceUrl"/>
-<portlet:resourceURL var="testAjaxJqueryResourceUrl" id="/test/osgi/resourceUrljquery"/>
-<liferay-portlet:resourceURL id="/myResourceID" var="myResourceURL" copyCurrentRenderParameters="<%=false %>"/>
-<p>
-	
-	<a href="${addEntryURL1 }">Create Users</a>
-</p>
-<%
-    BackgroundTaskDisplay backgroundTaskDisplay =
-        (BackgroundTaskDisplay)request.getAttribute(
-            "backgroundTaskDisplays");
 
-  //  if (backgroundTaskDisplay != null) {
-       
-%>
-           <c:if test="${not empty backgroundTaskDisplay }">
-            <div>
-                <p>Task Name: <%= backgroundTaskDisplay.getPercentage() %></p>
-                <p class="status">Status: <%= backgroundTaskDisplay.getStatus() %></p>
-                <!-- Add other relevant task information as needed -->
-            </div>
-            </c:if>
-<%
-     //   }
-    
-%>
+<liferay-portlet:resourceURL var="testAjaxJqueryResourceUrl" id="/test/osgi/resourceUrljquery" copyCurrentRenderParameters="<%=false %>"/>
+<liferay-portlet:resourceURL id="/test/osgi/resourceUrl" var="testAjaxResourceUrl" copyCurrentRenderParameters="<%=false %>"/>
 
-<portlet:renderURL var="editEntryURL">
-    <portlet:param name="mvcPath" value="/test1.jsp" />   
-</portlet:renderURL>
 
-<p>
-	<b><liferay-ui:message key="urlredirection.caption"/></b>
-	<a href="${editEntryURL }">click</a>
-</p>
 <p class="up-date"></p>
 <button onclick="ajaxCall()">resourceURL in Ajax</button>
 <button onclick="ajaxCallJquery()">resourceURL in Jquery Ajax</button>
