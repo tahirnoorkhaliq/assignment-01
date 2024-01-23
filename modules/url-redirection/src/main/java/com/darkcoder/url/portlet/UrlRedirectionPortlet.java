@@ -3,6 +3,9 @@ package com.darkcoder.url.portlet;
 import com.darkcoder.url.constants.UrlRedirectionPortletKeys;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.util.HttpComponentsUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.IOException;
 
@@ -37,6 +40,7 @@ public class UrlRedirectionPortlet extends MVCPortlet {
 	public void processAction(ActionRequest actionRequest, ActionResponse actionResponse)
 			throws IOException, PortletException {
 		System.out.println("hellooo");
+		
 		actionResponse.getRenderParameters().setValue("mvcPath", "/redirect.jsp");
 		
 	}

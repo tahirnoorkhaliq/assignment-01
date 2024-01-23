@@ -1,0 +1,4 @@
+Bundle-Name: refresh-using-js
+Bundle-SymbolicName: refresh.using.js
+Bundle-Version: 1.0.0
+Export-Package: refresh.using.js.constants
